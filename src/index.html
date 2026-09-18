@@ -1,13 +1,192 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>JSONPlaceHolder</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
-</html>
+<div class="container">
+  <h1>Gerenciador de Tarefas · JSONPlaceholder</h1>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="salvar()">
+    <label>
+      Título
+      <input
+        type="text"
+        formControlName="titulo"
+        placeholder="Nome da tarefa"
+      />
+    </label>
+
+    <label>
+      Descrição
+      <textarea
+        formControlName="descricao"
+        placeholder="Detalhes da atividade"
+      ></textarea>
+    </label>
+
+    <div class="linha">
+      <label>
+        Prioridade
+        <select formControlName="prioridade">
+          <option value="baixa">Baixa</option>
+          <option value="media">Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </label>
+
+      <label>
+        Categoria
+        <input
+          type="text"
+          formControlName="categoria"
+          placeholder="Classificação da tarefa"
+        />
+      </label>
+    </div>
+
+    <div class="linha">
+      <label>
+        Status
+        <select formControlName="status">
+          <option value="pendente">Pendente</option>
+          <option value="em andamento">Em andamento</option>
+          <option value="concluida">Concluída</option>
+        </select>
+      </label>
+
+      <label>
+        Data limite
+        <input type="date" formControlName="dataLimite" />
+      </label>
+    </div>
+
+    <button type="submit" [disabled]="enviando()">
+      {{ enviando() ? 'Salvando...' : 'Salvar' }}
+    </button>
+  </form>
+
+  @if (erro()) {
+    <p class="erro">{{ erro() }}</p>
+  }
+
+  <div class="lista">
+    <h2>Tarefas</h2>
+
+    @if (carregando()) {
+      <p class="carregando">Carregando tarefas...</p>
+    }
+
+    @if (!carregando() && tarefas().length === 0) {
+      <p class="vazio">Nenhuma tarefa cadastrada ainda.</p>
+    }
+
+    @for (tarefa of tarefas(); track tarefa.id) {
+      <div class="card">
+
+        @if (idEmEdicao() === tarefa.id) {
+
+          <form
+            class="form form-edicao"
+            [formGroup]="formEdicao"
+            (ngSubmit)="salvarEdicao(tarefa)"
+          >
+            <label>
+              Título
+              <input type="text" formControlName="titulo" />
+            </label>
+
+            <label>
+              Descrição
+              <textarea formControlName="descricao"></textarea>
+            </label>
+
+            <div class="linha">
+              <label>
+                Prioridade
+                <select formControlName="prioridade">
+                  <option value="baixa">Baixa</option>
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </label>
+
+              <label>
+                Categoria
+                <input type="text" formControlName="categoria" />
+              </label>
+            </div>
+
+            <label>
+              Data limite
+              <input type="date" formControlName="dataLimite" />
+            </label>
+
+            <div class="acoes">
+              <button type="submit">
+                Salvar alteração (PUT)
+              </button>
+
+              <button
+                type="button"
+                class="btn-secundario"
+                (click)="cancelarEdicao()"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+
+        } @else {
+
+          <div class="card-topo">
+            <strong>{{ tarefa.titulo }}</strong>
+
+            <span
+              class="badge"
+              [class.badge-concluida]="tarefa.status === 'concluida'"
+            >
+              {{ tarefa.status }}
+            </span>
+          </div>
+
+          <p>{{ tarefa.descricao }}</p>
+
+          <p class="meta">
+            {{ tarefa.categoria }} · prioridade {{ tarefa.prioridade }}
+
+            @if (tarefa.dataLimite) {
+              · até {{ tarefa.dataLimite }}
+            }
+          </p>
+
+          <div class="acoes">
+            <button
+              type="button"
+              class="btn-secundario"
+              (click)="iniciarEdicao(tarefa)"
+            >
+              Editar
+            </button>
+
+            <button
+              type="button"
+              class="btn-secundario"
+              (click)="alternarStatus(tarefa)"
+            >
+              {{
+                tarefa.status === 'concluida'
+                  ? 'Reabrir'
+                  : 'Concluir'
+              }}
+            </button>
+
+            <button
+              type="button"
+              class="btn-perigo"
+              (click)="excluir(tarefa.id)"
+            >
+              Excluir
+            </button>
+          </div>
+
+        }
+
+      </div>
+    }
+  </div>
+</div>

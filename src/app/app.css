@@ -1,0 +1,182 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+:host {
+  display: block;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: #444;
+  font-weight: bold;
+}
+
+.linha {
+  display: flex;
+  gap: 16px;
+}
+
+.linha label {
+  flex: 1;
+}
+
+input,
+select,
+textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: normal;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.erro {
+  color: #dc2626;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.lista h2 {
+  margin-bottom: 15px;
+  color: #111;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+.card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.badge {
+  background: #fef9c3;
+  color: #854d0e;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.badge-concluida {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.card p {
+  color: #444;
+  margin: 4px 0;
+}
+
+.meta {
+  font-size: 13px;
+  color: #777;
+}
+
+.carregando,
+.vazio {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.acoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn-secundario {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.btn-secundario:hover:not(:disabled) {
+  background: #d1d5db;
+}
+
+.btn-perigo {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-perigo:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+.acoes button {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.form-edicao {
+  margin-bottom: 0;
+  box-shadow: none;
+  padding: 0;
+}
